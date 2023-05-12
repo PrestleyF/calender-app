@@ -1,1 +1,1 @@
-document.querySelector()
+const toggle = document.querySelector()
