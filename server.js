@@ -48,9 +48,8 @@ generateCalender = (month, year) =>{
            } 
            calender_days.appendChild(day)
     }
-}
- let month_list = 
 
+ }
 let currentDate = new Date()
 
 let currentMonth = {value:currentDate.month()}
