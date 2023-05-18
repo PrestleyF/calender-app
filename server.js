@@ -43,6 +43,7 @@ generateCalender = (month, year) =>{
                               <span></span>
                               <span></span>
                               <span></span>`
+                              
             if( i - first_day.getDay() + 1 === currentDay.getDay() && currentDate.getFullYear() && month === currentDate.getMonth()){}
                  day.classList.add('curr-date')
            } 
