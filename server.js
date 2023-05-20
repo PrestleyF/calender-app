@@ -1,67 +1,67 @@
-document.querySelector('.dark-mode-switch').onclick = () =>{
-    document.querySelector('body').classList.toggle('dark')
-    document.querySelector('body').classList.toggle('light')
-}
 
-isleapYear = (year) =>{
-    return (year % 4 === 0 && year % 100!== 0 && year % 400!==0) || ( year % 100 === 0 && year % 400 === 0)
-}
+let nav = 0;
+let clicked = null;
+let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
 
-getFebDays = (year) =>{
-    return isleapYear(year)? 29 : 28
-}
+const calendar = document.getElementById('calendar');
+const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-let calender = document.querySelector('.calender')
+ function load(){
+   const dt = new Date();
 
-const month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-let month_picker = document.querySelector('#month-picker')
+   if(nav !== 0){
+    dt.setMonth(new Date().getMonth() + nav);
+   }
+   
+   const day = dt.getDate();
+   const month = dt.getMonth();
+   const year = dt.getFullYear();
 
-generateCalender = (month, year) =>{
-    let calender_days = document.querySelector('.calender-days')
+   const firstDayOfMonth = new Date(year, month, 1);
+   const daysInMonth = new Date( year, month + 1, 0).getDate();
 
-    calender_days.innerHTML = ''
+   const dateString = firstDayOfMonth.toLocaleDateString('en-us', {
+    weekday :'long',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+   });
+   const paddingDays = weekdays.indexOf(dateString.split(',')[0]);
 
-    let calender_header_year = document.querySelector('#year')
+   document.getElementById('months').innerText = `${dt.toLocaleDateString('en-us', {month: 'long'})} ${year}`
 
-    let days_of_month = [31, getFebDays(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+   calendar.innerHTML = '';
 
-    let currentDate = new Date()
+   for(let i = 1; i <= paddingDays + daysInMonth; i++){
+     const daySquare = document.createElement('div');
+     daySquare.classList.add('day');
 
-    month_picker.innerText = month_names[month]
-    calender_header_year.innerHTML = year
-
-    let first_day = new Date(year, month,1)
-
-    calender_header_year.innerText = year
-
-    for(let i= 0; i <= days_of_month[month] + first_day.getDay() - 1; i++){
-           let day = document.createElement('div')
-           if(i >= first_day.getDay()){
-            day.classList.add('calender-day-hover')
-            day.innerHTML = i - first_day.getDay() + 1
-            day.innerHTML += `<span></span>
-                              <span></span>
-                              <span></span>
-                              <span></span>`
-                              
-            if( i - first_day.getDay() + 1 === currentDay.getDay() && currentDate.getFullYear() && month === currentDate.getMonth()){}
-                 day.classList.add('curr-date')
-           } 
-           calender_days.appendChild(day)
-    }
+     if( i> paddingDays){
+          daySquare.innerText = i - paddingDays;
+          
+          daySquare.addEventListener('click', () => console.log('click'));
+     } else{
+          daySquare.classList.add('padding')
+     }
+     calendar.appendChild(daySquare);
+   }
 
  }
-let currentDate = new Date()
+function initButtons(){
+    document.getElementById('nextButton').addEventListener('click', () =>{
+        nav++;
+        load();
+    })
+    document.getElementById('backButton').addEventListener('click', () =>{
+        nav--;
+        load();
+    })
+}
 
-let currentMonth = {value:currentDate.month()}
-let currentYear = {value:currentDate.getFullYear()}
 
-generateCalender(currentMonth.value, currentYear.value)
+initButtons()
 
-
-
-
-
+ load()
 
 
 
