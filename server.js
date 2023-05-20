@@ -83,7 +83,6 @@ function initButtons(){
 
     document.getElementById('saveButton', () =>{});
 
-    document.getElementById('cancelButton').addEventListener('click',);
 }
 
 
