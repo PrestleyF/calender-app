@@ -23,7 +23,7 @@ function openModal(date){
 
 }
  function load(){
-   const dt = new Date();
+    const dt = new Date();
 
    if(nav !== 0){
     dt.setMonth(new Date().getMonth() + nav);
