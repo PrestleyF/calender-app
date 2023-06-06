@@ -21,6 +21,8 @@ function openModal(date){
     }
     backDrop.style.display = 'block';
 
+    
+
 }
  function load(){
     const dt = new Date();
